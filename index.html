@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>10 Best National Parks in the United States</title>
+
+  <!-- don't forget to call all of the stylesheets -->
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+  <style>
+    #map {width: 100%;height: calc(40vh);}
+    #about {max-height: calc(80vh);overflow-y: scroll;}
+    /* Small devices (landscape phones, 576px and up) */
+    @media (min-width: 576px) {}
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) {#map {height: calc(60vh);}}
+    /* Large devices (desktops, 992px and up) */
+    @media (min-width: 992px) {#map {height: calc(80vh);}}
+    /* Extra large devices (large desktops, 1200px and up) */
+    @media (min-width: 1200px) {}
+  </style>
+</head>
+
+<body>
+<!-- now that we're in the body of our page, you can see it is broken up into three page sections, which are all held in a fluid div container-->
+
+  <div class="container-fluid">
+    <!-- this section defines the header part of the page, or first 'row'-->
+    <header class="row py-3 bg-dark text-white">
+      <div class="col mx-2">
+        <h1 class="h1">A Route Between the 10 Best National Parks in the United States
+      </div>
+    </header>
+
+
+    <!-- this section defines the 'middle' part of the page, broken up into two parts-->
+    <section class="row bg-light">
+      <!-- first, here's the "about" info section on the left-->
+      <aside id="about" class="col-12 col-md-5 col-lg-4 text-dark py-2">
+        <section>
+          <h1 class="h4 text-dark">Overview</h1>
+          <p>The United States is one of the largest countries on the planet. This vast area is home to 62 National Parks, which attract hundreds of millions of visitors annually. These parks are scattered throughout the country and all have something special to offer. Nonetheless, I examined the National Parks in the United States that attract the most visitors. </p>
+          <p>A feature story that was recently released by the magazine hightlighted these top ten most visited parks and the beauty they offer. This web mapping application was designed in order to showcase a route between these parks. The route can start with Acadia National Park or Grand Canyon National Park.</p>
+          <p>This application shows the route that is neccessary to travel in between all ten of these parks. Hovering over the location markers will display the park name. This route takes approximately 97 hours and spans from coast to coast of the United States.</p>
+          <p></p>
+          <p>The feature story mentioned above can be found <a href="https://www.travelandleisure.com/trip-ideas/national-parks/top-10-national-parks-in-the-us">here</a>.</p>
+        </section>
+      </aside>
+
+      <!-- second, here's the map div container, located on the right-->
+      <div class="col-12 col-md-7 col-lg-8 px-0">
+        <div id="map" class="bg-light position-relative"></div>
+      </div>
+    </section>
+
+
+
+    <!-- middle section has ended, now here's the page footer-->
+    <footer class="row bg-dark text-white py-3">
+      <div class="col mx-2">
+        <ul class="list-unstyled">
+          <li>William Nance</li>
+          <li>May 4, 2021</li>
+          <li><a href="https://www.travelandleisure.com/trip-ideas/national-parks/top-10-national-parks-in-the-us">Article Link</a> , <a href="https://goo.gl/maps/nuY3nXkffUZhGsbw6">Route Link</a>
+        </ul>
+      </div>
+    </footer>
+  </div> <!-- end of fluid container -->
+
+  <!--don't forget to call all of the necessary JS libraries -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+  <script src="assets/route.js"></script>
+
+  <!-- and then you can begin writing your JS for the map -->
+  <script>
+
+<script src="assets/route.js"></script>
+
+<script>
+
+//options to be used when creating the map
+  var options = {
+    center: [38.8893, - 77.0502],
+    zoom: 16
+  }
+
+  console.log(data);
+
+  //creation of the Leaflet map
+    var map = L.map('map', options);
+
+  //request to load basemap
+  var USGS_USTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}', {
+  	maxZoom: 20,
+  	attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
+  }).addTo(map);
+
+  //string content to be inserted into a tooltip
+  //		var message = 'Lincoln Memorial!';
+
+  //create a Leaflet marker, centered on the map's center.
+  //		L.marker(map.getCenter())
+  //			.bindTooltip(message) //bind the tooltip and message to the marker
+  //			.addTo(map) // add the marker to the map`
+  //			.openTooltip(); // open the tooltip
+
+var myRoute = L.geoJson(data, {
+filter : function(feature) {
+    if(feature.geometry.type =="LineString") {
+        return feature;
+      }
+    },
+    style : function(feature) {
+
+      return {
+        color: "#005DAA",
+        weight: 5,
+        opacity: 0.9,
+        dashArray: "6, 6"
+      }
+    }
+    }).addTo(map);
+
+    var myStops = L.geoJson(data, {
+      filter : function(feature) {
+        if(feature.geometry.type == "Point") {
+          return feature;
+        }
+      },
+      onEachFeature : function(feature, layer) {
+        layer.bindTooltip(feature.properties['name']);
+      }
+      }).addTo(map);
+
+
+map.fitBounds(myRoute.getBounds());
+
+
+
+
+
+
+
+  </script>
+
+</body>
+</html>
